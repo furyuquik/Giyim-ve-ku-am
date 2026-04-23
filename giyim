@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ModaKöşesi – Giyim & Stil</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fafafa;
+      color: #222;
+      line-height: 1.7;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    /* ── HEADER ── */
+    header {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.35);
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #e0aaff;
+    }
+    .logo span { color: #c77dff; }
+    nav { display: flex; gap: 1.5rem; }
+    nav a {
+      font-size: .95rem;
+      font-weight: 500;
+      color: #ccc;
+      transition: color .2s;
+    }
+    nav a:hover { color: #e0aaff; }
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 520px;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+      overflow: hidden;
+      padding: 2rem;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("[images.unsplash.com](https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&auto=format&fit=crop)") center/cover no-repeat;
+      opacity: .25;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 700px; }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: #c77dff; }
+    .hero p { font-size: 1.1rem; color: #ddd; margin-bottom: 2rem; }
+    .btn {
+      display: inline-block;
+      background: #c77dff;
+      color: #fff;
+      padding: .8rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background .25s, transform .2s;
+      cursor: pointer;
+    }
+    .btn:hover { background: #9d4edd; transform: translateY(-2px); }
+    /* ── SECTION TITLES ── */
+    .section-title {
+      text-align: center;
+      padding: 3rem 1rem 1.5rem;
+    }
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1a1a2e;
+    }
+    .section-title h2 span { color: #c77dff; }
+    .section-title p { color: #666; margin-top: .4rem; }
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #c77dff, #7b2ff7);
+      border-radius: 4px;
+      margin: .7rem auto 0;
+    }
+    /* ── FEATURED ARTICLES GRID ── */
+    .articles {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.08);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,.14); }
+    .card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .card-img-placeholder {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .tag {
+      display: inline-block;
+      background: #f0e6ff;
+      color: #7b2ff7;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      padding: .25rem .7rem;
+      border-radius: 50px;
+      margin-bottom: .7rem;
+    }
+    .card-body h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin-bottom: .5rem;
+      color: #1a1a2e;
+      line-height: 1.35;
+    }
+    .card-body p { font-size: .9rem; color: #555; margin-bottom: 1rem; }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .8rem;
+      color: #999;
+    }
+    .card-meta span { display: flex; align-items: center; gap: .25rem; }
+    .read-more {
+      display: inline-block;
+      margin-top: .75rem;
+      color: #7b2ff7;
+      font-weight: 700;
+      font-size: .88rem;
+      transition: gap .2s;
+    }
+    .read-more:hover { text-decoration: underline; }
+    /* ── LOOKBOOK STRIP ── */
+    .lookbook-section {
+      background: #1a1a2e;
+      padding: 3rem 1.5rem;
+    }
+    .lookbook-section .section-title h2 { color: #fff; }
+    .lookbook-section .section-title p { color: #aaa; }
+    .lookbook-grid {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .look-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+    }
+    .look-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .4s;
+    }
+    .look-item:hover img { transform: scale(1.08); }
+    .look-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 55%);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+      color: #fff;
+      font-size: .85rem;
+      font-weight: 600;
+    }
+    .look-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+    /* ── TIPS SECTION ── */
+    .tips-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .tip-card {
+      background: linear-gradient(135deg, #f0e6ff, #fbe8ff);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid #e4ccff;
+    }
+    .tip-icon { font-size: 2.5rem; margin-bottom: .75rem; }
+    .tip-card h4 { font-size: 1rem; font-weight: 800; color: #1a1a2e; margin-bottom: .4rem; }
+    .tip-card p { font-size: .85rem; color: #555; }
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      background: linear-gradient(135deg, #7b2ff7, #c77dff);
+      padding: 4rem 1.5rem;
+      text-align: center;
+      color: #fff;
+    }
+    .newsletter h2 { font-size: 2rem; font-weight: 900; margin-bottom: .5rem; }
+    .newsletter p { font-size: 1rem; opacity: .9; margin-bottom: 2rem; }
+    .nl-form {
+      display: flex;
+      gap: .75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .nl-form input {
+      flex: 1;
+      min-width: 220px;
+      padding: .85rem 1.25rem;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      outline: none;
+    }
+    .nl-form button {
+      background: #1a1a2e;
+      color: #fff;
+      border: none;
+      padding: .85rem 2rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .nl-form button:hover { background: #0f0f1a; }
+    /* ── FOOTER ── */
+    footer {
+      background: #111;
+      color: #aaa;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+      font-size: .9rem;
+    }
+    .footer-links a:hover { color: #c77dff; }
+    footer p { font-size: .82rem; }
+    .footer-logo { font-size: 1.4rem; font-weight: 800; color: #e0aaff; margin-bottom: 1rem; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { gap: 1rem; }
+      nav a { font-size: .82rem; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+<!-- HEADER -->
+<header>
+  <div class="logo">Moda<span>Köşesi</span></div>
+  <nav>
+    <a href="#makaleler">Makaleler</a>
+    <a href="#lookbook">Lookbook</a>
+    <a href="#ipuclari">İpuçları</a>
+    <a href="#bulten">Bülten</a>
+  </nav>
+</header>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Stilini <span>Keşfet</span>,<br/>Kendini İfade Et</h1>
+    <p>Giyim trendleri, stil rehberleri ve sezon önerileriyle moduğunun en iyisini yansıt.</p>
+    <a class="btn" href="#makaleler">Makaleleri Keşfet</a>
+  </div>
+</section>
+<!-- ARTICLES -->
+<div id="makaleler" class="section-title">
+  <h2>Öne Çıkan <span>Makaleler</span></h2>
+  <p>Stilini geliştirmek için ilham veren içerikler</p>
+  <div class="divider"></div>
+</div>
+<div class="articles">
+  <!-- Kart 1 -->
+  <div class="card">
+    <img class="card-img"
+         src="[images.unsplash.com](https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&auto=format&fit=crop)"
+         alt="2025 İlkbahar Trendleri" />
+    <div class="card-body">
+      <span class="tag">Trend</span>
+      <h3>2025 İlkbahar–Yaz Koleksiyonlarının En Dikkat Çekici Trendleri</h3>
+      <p>Bu sezon podyumlardan sokağa inen pastel tonlar, oversized siluetler ve sürdürülebilir kumaşlar öne çıkıyor.</p>
+      <div class="card-meta">
+        <span>📅 15 Nisan 2025</span>
+        <span>·</span>
+        <span>⏱ 5 dk okuma</span>
+      </div>
+      <a class="read-more" href="#">Devamını Oku →</a>
+    </div>
+  </div>
+  <!-- Kart 2 -->
+  <div class="card">
+    <img class="card-img"
+         src="[images.unsplash.com](https://images.unsplash.com/photo-1445205170230-053b83016050?w=600&auto=format&fit=crop)"
+         alt="Kapsül Gardırop" />
+    <div class="card-body">
+      <span class="tag">Gardırop</span>
+      <h3>Kapsül Gardırop Nasıl Oluşturulur? 10 Temel Parça</h3>
+      <p>Daha az parçayla daha fazla kombin yaratmanın sırrı: zamansız kesimler, nötr renkler ve akıllı kombinler.</p>
+      <div class="card-meta">
+        <span>📅 8 Nisan 2025</span>
+        <span>·</span>
+        <span>⏱ 7 dk okuma</span>
+      </div>
+      <a class="read-more" href="#">Devamını Oku →</a>
+    </div>
+  </div>
+  <!-- Kart 3 -->
+  <div class="card">
+    <img class="card-img"
+         src="[images.unsplash.com](https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&auto=format&fit=crop)"
+         alt="Aksesuar Rehberi" />
+    <div class="card-body">
+      <span class="tag">Aksesuar</span>
+      <h3>Doğru Aksesuar Seçimi ile Kombin Büyüsü</h3>
+      <p>Çanta, kemer, takı ve şapka gibi detaylar bir kombini sıradan olmaktan çıkarıp unutulmaz kılar.</p>
+      <div class="card-meta">
+        <span>📅 2 Nisan 2025</span>
+        <span>·</span>
+        <span>⏱ 4 dk okuma</span>
+      </div>
+      <a class="read-more" href="#">Devamını Oku →</a>
+    </div>
+  </div>
+  <!-- Kart 4 -->
+  <div class="card">
+    <img class="card-img"
+         src="[images.unsplash.com](https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&auto=format&fit=crop)"
+         alt="Sürdürülebilir Moda" />
+    <div class="card-body">
+      <span class="tag">Sürdürülebilir</span>
+      <h3>Sürdürülebilir Moda: Hem Şık Hem Çevre Dostu Olmak</h3>
+      <p>İkinci el alışveriş, organik kumaşlar ve yavaş moda hareketi ile hem gezegenimize hem cüzdanımıza iyi davranabiliriz.</p>
+      <div class="card-meta">
+        <span>📅 28 Mart 2025</span>
+        <span>·</span>
+        <span>⏱ 6 dk okuma</span>
+      </div>
+      <a class="read-more" href="#">Devamını Oku →</a>
+    </div>
+  </div>
+  <!-- Kart 5 -->
+  <div class="card">
+    <img class="card-img"
+         src="[images.unsplash.com](https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop)"
+         alt="Erkek Stili" />
+    <div class="card-body">
+      <span class="tag">Erkek Stili</span>
+      <h3>Modern Erkeğin Stil Rehberi: Casual'dan Formele</h3>
+      <p>İş toplantısından hafta sonu buluşmasına, her ortama uygun şık erkek kombinleri için temel kurallar.</p>
+      <div class="card-meta">
+        <span>📅 20 Mart 2025</span>
+        <span>·</span>
+        <span>⏱ 5 dk okuma</span>
+      </div>
+      <a class="read-more" href="#">Devamını Oku →</a>
+    </div>
+  </div>
+  <!-- Kart 6 -->
+  <div class="card">
+    <img class="card-img"
+         src="[images.unsplash.com](https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&auto=format&fit=crop)"
+         alt="Renk Uyumu" />
+    <div class="card-body">
+      <span class="tag">Renk & Desen</span>
+      <h3>Renk Uyumu: Kombin Yaparken Renkleri Doğru Eşleştirme</h3>
+      <p>Renk çarkından ilham alarak gardırobunuzdaki parçaları birbirine uyumlu ve göz alıcı şekilde bir araya getirin.</p>
+      <div class="card-meta">
+        <span>📅 14 Mart 2025</span>
+        <span>·</span>
+        <span>⏱ 4 dk okuma</span>
+      </div>
+      <a class="read-more" href="#">Devamını Oku →</a>
+    </div>
+  </div>
+</div>
+<!-- LOOKBOOK -->
+<section id="lookbook" class="lookbook-section">
+  <div class="section-title">
+    <h2>Sezon <span style="color:#c77dff">Lookbook</span>'u</h2>
+    <p>İlham dolu kombinler ve stil fotoğrafları</p>
+    <div class="divider"></div>
+  </div>
+  <div class="lookbook-grid">
+    <div class="look-item">
+      <img src="[images.unsplash.com](https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&auto=format&fit=crop)" alt="Look 1"/>
+      <div class="look-overlay">Minimalist Şıklık</div>
+    </div>
+    <div class="look-item">
+      <img src="[images.unsplash.com](https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=400&auto=format&fit=crop)" alt="Look 2"/>
+      <div class="look-overlay">Sokak Stili</div>
+    </div>
+    <div class="look-item">
+      <img src="[images.unsplash.com](https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=400&auto=format&fit=crop)" alt="Look 3"/>
+      <div class="look-overlay">Business Casual</div>
+    </div>
+    <div class="look-item">
+      <img src="[images.unsplash.com](https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=400&auto=format&fit=crop)" alt="Look 4"/>
+      <div class="look-overlay">Bohem Rüzgarı</div>
+    </div>
+    <div class="look-item">
+      <img src="[images.unsplash.com](https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=400&auto=format&fit=crop)" alt="Look 5"/>
+      <div class="look-overlay">Klasik & Zarif</div>
+    </div>
+  </div>
+</section>
+<!-- STYLE TIPS -->
+<div id="ipuclari" class="section-title">
+  <h2>Hızlı <span>Stil İpuçları</span></h2>
+  <p>Kolayca uygulayabileceğiniz moda tüyoları</p>
+  <div class="divider"></div>
+</div>
+<div class="tips-section">
+  <div class="tip-card">
+    <div class="tip-icon">👗</div>
+    <h4>Vücut Tipine Uygun Giy</h4>
+    <p>Kesimler ve kumaşlar, vücut hatlarınızı öne çıkarır ya da dengeler. Kendi siluetinizi tanıyın.</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🎨</div>
+    <h4>Rengi Az Kullan, Etkiyi Büyüt</h4>
+    <p>Üç renkten fazlasını bir araya getirmekten kaçının. Nötr bir taban üzerine tek bir canlı renk ekleyin.</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">👟</div>
+    <h4>Ayakkabı Her Şeyi Değiştirir</h4>
+    <p>Aynı kombin farklı ayakkabılarla bambaşka bir his verir. Sneaker vs. topuklu deyin!</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🪡</div>
+    <h4>Kumaş Kalitesine Yatırım Yapın</h4>
+    <p>Az ama kaliteli parça, çok ama ucuz parçadan her zaman daha iyi görünür ve uzun ömürlüdür.</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">🔄</div>
+    <h4>Katmanlama Sanatı</h4>
+    <p>Blazer, hırka veya yelek ile aynı parçadan birden fazla look yaratabilirsiniz.</p>
+  </div>
+  <div class="tip-card">
+    <div class="tip-icon">✨</div>
+    <h4>Ütü & Bakım Şart</h4>
+    <p>En pahalı kıyafet bile bakımsız durunca değersiz görünür. Kıyafetlerinizi temiz ve ütülü tutun.</p>
+  </div>
+</div>
+<!-- NEWSLETTER -->
+<section id="bulten" class="newsletter">
+  <h2>📩 Stil Bültenine Katıl</h2>
+  <p>Yeni makaleler, trend haberleri ve özel indirimler doğrudan mailinde olsun.</p>
+  <div class="nl-form">
+    <input type="email" placeholder="E-posta adresiniz..." />
+    <button type="button">Abone Ol</button>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ModaKöşesi</div>
+  <div class="footer-links">
+    <a href="#">Ana Sayfa</a>
+    <a href="#">Hakkımızda</a>
+    <a href="#">Gizlilik</a>
+    <a href="#">İletişim</a>
+    <a href="#">Instagram</a>
+  </div>
+  <p>© 2025 ModaKöşesi. Tüm hakları saklıdır.</p>
+</footer>
+</body>
+</html>
